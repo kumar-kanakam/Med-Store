@@ -1,0 +1,33 @@
+{% extends 'store/base.html' %}
+{% block content %}
+<div class="form-card">
+    <h2>Add / Edit Medicine</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        name:
+        <input type="text" name="name" placeholder="Medicine Name"
+               value="{{ med.name|default:'' }}" required>
+       cause:
+        <input type="text" name="cause" placeholder="cause of medicine"
+               value="{{ med.cause|default:'' }}" required>
+       batch_no:
+        <input type="text" name="batch" placeholder="Batch No"
+               value="{{ med.batch_no|default:'' }}" required>
+       company:
+        <input type="text" name="company" placeholder="Company Name"
+               value="{{ med.company|default:'' }}" required>
+       expiry_date:
+        <input type="date" name="expiry"
+               value="{{ med.expiry_date|default:'' }}" required>
+       price:
+        <input type="number" name="price" placeholder="Price"
+               value="{{ med.price|default:'' }}" required>
+       quantity:
+        <input type="number" name="quantity" placeholder="Quantity"
+               value="{{ med.quantity|default:'' }}" required>
+
+        <button type="submit">Save Medicine</button>
+    </form>
+</div>
+{% endblock %}

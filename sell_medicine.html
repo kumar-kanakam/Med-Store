@@ -1,0 +1,31 @@
+{% extends 'store/base.html' %}
+{% block content %}
+<div class="form-card">
+    <h2>Sell Medicine</h2>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <select name="medicine" required>
+            {% for m in medicines %}
+            <option value="{{ m.id }}">
+                {{ m.name }} (Stock: {{ m.quantity }})
+            </option>
+            {% endfor %}
+        </select>
+
+        <input type="number" name="quantity" placeholder="Quantity Sold" required>
+        <input type="text" name="customer" placeholder="Customer Name" required>
+        <input type="text" name="mobile" placeholder="Mobile Number" required>
+
+        <button type="submit">Sell</button>
+        {% if messages %}
+        {% for message in messages %}
+        <div style='color:red;'>
+            {{ message }}
+        </div>
+        {% endfor %}
+            {% endif %}
+    </form>
+</div>
+{% endblock %}

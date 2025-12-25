@@ -1,0 +1,26 @@
+{% extends 'store/base.html' %}
+{% block content %}
+<div class="card">
+    <h2>Sales History</h2>
+
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Medicine</th>
+            <th>Customer</th>
+            <th>Mobile</th>
+            <th>Quantity</th>
+        </tr>
+
+        {% for s in sales %}
+        <tr>
+            <td>{{ s.date }}</td>
+            <td>{{ s.medicine.name }}</td>
+            <td>{{ s.customer.name }}</td>
+            <td>{{ s.customer.mobile }}</td>
+            <td>{{ s.quantity_sold }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

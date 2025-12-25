@@ -1,0 +1,50 @@
+{% extends 'store/base.html' %}
+{% block content %}
+
+<div class="card">
+    <h2>Medicine List</h2>
+
+    <form method="get" style="margin-bottom:15px;">
+        <input type="text" name="q"
+               placeholder="Search medicine / company / batch / cause"
+               value="{{ query|default:'' }}">
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- 🔑 TABLE WRAPPER -->
+    <div class="table-wrapper">
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Cause</th>
+                <th>Company</th>
+                <th>Qty</th>
+                <th>Expiry</th>
+                <th>Actions</th>
+            </tr>
+
+            {% for m in medicines %}
+            <tr class="{% if m.expiry_date < today %}expired{% endif %}">
+                <td>{{ m.name }}</td>
+                <td>{{ m.cause }}</td>
+                <td>{{ m.company }}</td>
+                <td class="{% if m.quantity < 10 %}low-stock{% endif %}">
+                    {{ m.quantity }}
+                </td>
+                <td>{{ m.expiry_date }}</td>
+                <td>
+                    <a href="/edit/{{ m.id }}/">Edit</a> |
+                    <a href="/delete/{{ m.id }}/"
+                       onclick="return confirm('Delete?')">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6">No medicines found</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+{% endblock %}
